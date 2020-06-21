@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { getArticleDetail } from '../actions';
 import pageRenderer from '../page-renderer';
 
 const PageContentTpl = (props) => {
@@ -9,20 +10,9 @@ const PageContentTpl = (props) => {
 const PageContent = pageRenderer(PageContentTpl);
 
 const ArticleDetail = () => {
-  const [errors, setErrors] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const apiRequest = () => getArticleDetail();
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-      setErrors({
-        code: '404',
-        msg: 'Record is not found.'
-      });
-    }, 2000);
-  }, []);
-
-  return <PageContent isLoading={isLoading} data={null} errors={errors} />;
+  return <PageContent apiRequest={apiRequest} />;
 }
 
 export default ArticleDetail;

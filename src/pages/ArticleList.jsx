@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { getArticleList } from '../actions';
 import pageRenderer from '../page-renderer';
 
 const PageContentTpl = (props) => {
@@ -16,23 +17,9 @@ const PageContentTpl = (props) => {
 const PageContent = pageRenderer(PageContentTpl);
 
 const ArticleList = () => {
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-      setData({
-        articles: [
-          'What is HOC ?',
-          'Create a simple HOC',
-          'Use the HOC'
-        ]
-      });
-    }, 1000);
-  }, []);
+  const apiRequest = () => getArticleList();
   
-  return <PageContent isLoading={isLoading} data={data} errors={null} />;
+  return <PageContent apiRequest={apiRequest} />;
 }
 
 export default ArticleList;
